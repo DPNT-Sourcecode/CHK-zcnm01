@@ -34,9 +34,14 @@ public class CheckoutSolution {
         int offerPriceA5 = 200;
         total += (aCount / 5) * offerPriceA5 + ((aCount % 5) / 3) * offerPriceA3 + ((aCount % 5) % 3) * prices.get('A');
 
+        // Apply special offer for SKU 'B'
+        int bCount = itemCounts.getOrDefault('B', 0);
+        int offerQuantityB = 2;
+        int offerPriceB = 45;
+        total += (bCount / offerQuantityB) * offerPriceB + (bCount % offerQuantityB) * prices.get('B');
+
         // Apply special offer for item 'E': buy 2 E's, get one B free
         int eCount = itemCounts.getOrDefault('E', 0);
-        int bCount = itemCounts.getOrDefault('B', 0);
         int freeBs = eCount / 2;
         total += eCount * prices.get('E') - Math.min(freeBs, bCount) * prices.get('B');
 
@@ -44,7 +49,7 @@ public class CheckoutSolution {
         for (Map.Entry<Character, Integer> entry : itemCounts.entrySet()) {
             char sku = entry.getKey();
             int count = entry.getValue();
-            if (sku != 'A' && sku != 'E') {
+            if (sku != 'A' && sku != 'B' && sku != 'E') {
                 total += count * prices.get(sku);
             }
         }
@@ -53,6 +58,7 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
 
