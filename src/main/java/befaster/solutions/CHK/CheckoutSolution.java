@@ -14,11 +14,10 @@ public class CheckoutSolution {
         prices.put('D', 15);
         prices.put('E', 40);
 
-        Map<Character, SpecialOffer> specialOffers = new HashMap<>();
-        specialOffers.put('A', new SpecialOffer(3, 130));
-        specialOffers.put('Z', new SpecialOffer(5, 200)); // Use separate key for second offer of A
-        specialOffers.put('B', new SpecialOffer(2, 45));
-        specialOffers.put('E', new SpecialOffer(2, 0)); // Special offer for item E
+        Map<Character, SpecialOffer[]> specialOffers = new HashMap<>();
+        specialOffers.put('A', new SpecialOffer[]{new SpecialOffer(3, 130), new SpecialOffer(5, 200)}); // Offers for A
+        specialOffers.put('B', new SpecialOffer[]{new SpecialOffer(2, 45)});
+        specialOffers.put('E', new SpecialOffer[]{new SpecialOffer(2, 0)}); // Special offer for E
 
         // Initialize total checkout value
         int total = 0;
@@ -37,26 +36,33 @@ public class CheckoutSolution {
             char sku = entry.getKey();
             int count = entry.getValue();
             int price = prices.get(sku);
-            int specialPrice = calculateSpecialPrice(count, price, specialOffers.getOrDefault(sku, new SpecialOffer(1, price)), itemCounts, prices);
+            int specialPrice = calculateSpecialPrice(count, price, specialOffers.getOrDefault(sku, new SpecialOffer[]{new SpecialOffer(1, price)}), itemCounts, prices);
             total += specialPrice;
         }
 
         return total;
     }
 
-    private int calculateSpecialPrice(int count, int price, SpecialOffer specialOffer, Map<Character, Integer> itemCounts, Map<Character, Integer> prices) {
-        int quantity = specialOffer.getQuantity();
-        int offerPrice = specialOffer.getOfferPrice();
+    private int calculateSpecialPrice(int count, int price, SpecialOffer[] specialOffers, Map<Character, Integer> itemCounts, Map<Character, Integer> prices) {
+        int minPrice = Integer.MAX_VALUE;
 
-        if (offerPrice == 0) { // Special offer for item E: buy 2 E's, get one B free
-            int eCount = itemCounts.getOrDefault('E', 0);
-            int freeBs = Math.min(count, eCount / quantity); // Limit free B's by available E's
-            return count * price - freeBs * prices.get('B'); // Get the price of 'B'
-        } else { // Other special offers
-            int specials = count / quantity;
-            int remaining = count % quantity;
-            return specials * offerPrice + remaining * price;
+        for (SpecialOffer specialOffer : specialOffers) {
+            int quantity = specialOffer.getQuantity();
+            int offerPrice = specialOffer.getOfferPrice();
+
+            if (offerPrice == 0) { // Special offer for item E: buy 2 E's, get one B free
+                int eCount = itemCounts.getOrDefault('E', 0);
+                int freeBs = Math.min(count, eCount / quantity); // Limit free B's by available E's
+                minPrice = Math.min(minPrice, count * price - freeBs * prices.get('B')); // Get the price of 'B'
+            } else { // Other special offers
+                int specials = count / quantity;
+                int remaining = count % quantity;
+                int currentPrice = specials * offerPrice + remaining * price;
+                minPrice = Math.min(minPrice, currentPrice);
+            }
         }
+
+        return minPrice;
     }
 
     private static class SpecialOffer {
@@ -77,5 +83,6 @@ public class CheckoutSolution {
         }
     }
 }
+
 
 
