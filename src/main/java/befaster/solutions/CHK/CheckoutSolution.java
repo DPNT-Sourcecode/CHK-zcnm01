@@ -42,13 +42,10 @@ public class CheckoutSolution {
 
         // Apply special offer for item 'E': buy 2 E's, get one B free
         int eCount = itemCounts.getOrDefault('E', 0);
+        int bCountWithE = itemCounts.getOrDefault('B', 0);
         int freeBs = eCount / 2;
         total += (eCount - freeBs) * prices.get('E');
-
-        // Deduct free Bs from the total if applicable
-        if (freeBs > 0) {
-            total -= freeBs * prices.get('B');
-        }
+        total -= Math.min(freeBs, bCountWithE) * prices.get('B');
 
         // Calculate total for remaining items
         for (Map.Entry<Character, Integer> entry : itemCounts.entrySet()) {
@@ -62,11 +59,3 @@ public class CheckoutSolution {
         return total;
     }
 }
-
-
-
-
-
-
-
-
