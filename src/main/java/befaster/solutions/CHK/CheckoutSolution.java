@@ -49,12 +49,13 @@ public class CheckoutSolution {
             this.offerPrice = offerPrice;
         }
 
-        public int calculatePrice(int count, int price) {
-            int specials = count / quantity;
-            int remaining = count % quantity;
+        public int calculatePrice(int totalCount, int price) {
+            int specials = totalCount / quantity;
+            int remaining = totalCount % quantity;
             return specials * offerPrice + remaining * price;
         }
     }
 }
+
 
 
