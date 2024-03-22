@@ -44,15 +44,23 @@ public class CheckoutSolution {
         private int quantity;
         private int offerPrice;
 
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public int getOfferPrice() {
+            return offerPrice;
+        }
+
         public SpecialOffer(int quantity, int offerPrice) {
             this.quantity = quantity;
             this.offerPrice = offerPrice;
         }
 
         public int calculatePrice(int count, int price, SpecialOffer specialOffer) {
-            int quantity = specialOffer.getQuantity();
-            int offerPrice = specialOffer.getOfferPrice();
-            int specials = count / quantity;
+            int specQuantity = specialOffer.getQuantity();
+            int specOfferPrice = specialOffer.getOfferPrice();
+            int specials = count / specOfferPrice;
             int remaining = count % quantity;
             return specials * offerPrice + remaining * price;
         }
