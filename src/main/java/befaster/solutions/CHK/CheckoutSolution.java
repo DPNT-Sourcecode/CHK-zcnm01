@@ -5,64 +5,65 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CheckoutSolution {
-    public Integer checkout(String skus) {
-        Map <Character, Integer> prices = new HashMap<>();
-        prices.put('A',50);
-        prices.put('B',30);
-        prices.put('C',20);
-        prices.put('D',55);
+        public Integer checkout(String skus) {
+            // Price table and special offers
+            Map<Character, Integer> prices = new HashMap<>();
+            prices.put('A', 50);
+            prices.put('B', 30);
+            prices.put('C', 20);
+            prices.put('D', 15);
 
-        Map<Character, SpecialOffer> specialOffers = new HashMap<>();
-        specialOffers.put('A', new SpecialOffer(3, 130));
-        specialOffers.put('B', new SpecialOffer(2, 45));
+            Map<Character, SpecialOffer> specialOffers = new HashMap<>();
+            specialOffers.put('A', new SpecialOffer(3, 130));
+            specialOffers.put('B', new SpecialOffer(2, 45));
 
-        // Initialize total checkout value
-        int total = 0;
+            // Initialize total checkout value
+            int total = 0;
 
-        // Count occurrences of each item
-        Map<Character, Integer> itemCounts = new HashMap<>();
-        for (char sku : skus.toCharArray()) {
-            if (!prices.containsKey(sku)) {
-                return -1; // Illegal input
+            // Count occurrences of each item
+            Map<Character, Integer> itemCounts = new HashMap<>();
+            for (char sku : skus.toCharArray()) {
+                if (!prices.containsKey(sku)) {
+                    return -1; // Illegal input
+                }
+                itemCounts.put(sku, itemCounts.getOrDefault(sku, 0) + 1);
             }
-            itemCounts.put(sku, itemCounts.getOrDefault(sku, 0) + 1);
+
+            // Calculate total checkout value
+            for (Map.Entry<Character, Integer> entry : itemCounts.entrySet()) {
+                char sku = entry.getKey();
+                int count = entry.getValue();
+                int price = prices.get(sku);
+                int specialPrice = calculateSpecialPrice(count, price, specialOffers.getOrDefault(sku, new SpecialOffer(1, price)));
+                total += specialPrice;
+            }
+
+            return total;
         }
 
-        // Calculate total checkout value
-        for (Map.Entry<Character, Integer> entry : itemCounts.entrySet()) {
-            char sku = entry.getKey();
-            int count = entry.getValue();
-            int price = prices.get(sku);
-            int specialPrice = specialOffers.containsKey(sku) ? specialOffers.get(sku).calculatePrice(count, price,specialOffers.getOrDefault(sku, new SpecialOffer(1, price))) : price * count;
-            total += specialPrice;
-        }
-
-        return total;
-    }
-
-    private static class SpecialOffer {
-        private int quantity;
-        private int offerPrice;
-
-        public int getQuantity() {
-            return quantity;
-        }
-
-        public int getOfferPrice() {
-            return offerPrice;
-        }
-
-        public SpecialOffer(int quantity, int offerPrice) {
-            this.quantity = quantity;
-            this.offerPrice = offerPrice;
-        }
-
-        public int calculatePrice(int count, int price, SpecialOffer specialOffer) {
-            int specQuantity = specialOffer.getQuantity();
-            int specOfferPrice = specialOffer.getOfferPrice();
-            int specials = count / specOfferPrice;
+        private int calculateSpecialPrice(int count, int price, SpecialOffer specialOffer) {
+            int quantity = specialOffer.getQuantity();
+            int offerPrice = specialOffer.getOfferPrice();
+            int specials = count / quantity;
             int remaining = count % quantity;
             return specials * offerPrice + remaining * price;
         }
+
+        private static class SpecialOffer {
+            private int quantity;
+            private int offerPrice;
+
+            public SpecialOffer(int quantity, int offerPrice) {
+                this.quantity = quantity;
+                this.offerPrice = offerPrice;
+            }
+
+            public int getQuantity() {
+                return quantity;
+            }
+
+            public int getOfferPrice() {
+                return offerPrice;
+            }
+        }
     }
-}
