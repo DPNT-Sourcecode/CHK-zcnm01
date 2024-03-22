@@ -5,49 +5,59 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CheckoutSolution {
-    public Integer checkout(String skus) {
-        // Price table and special offers
-        Map<Character, Integer> prices = new HashMap<>();
-        prices.put('A', 50);
-        prices.put('B', 30);
-        prices.put('C', 20);
-        prices.put('D', 15);
-        prices.put('E', 40);
-
-        // Initialize total checkout value
+    public int checkout(String basket) {
         int total = 0;
+        HashMap<String, Integer> itemCount = new HashMap<>();
 
-        // Count occurrences of each item
-        Map<Character, Integer> itemCounts = new HashMap<>();
-        for (char sku : skus.toCharArray()) {
-            if (!prices.containsKey(sku)) {
-                return -1; // Illegal input
-            }
-            itemCounts.put(sku, itemCounts.getOrDefault(sku, 0) + 1);
+        // Count item occurrences
+        for (char item : basket.toCharArray()) {
+            itemCount.put(String.valueOf(item), itemCount.getOrDefault(String.valueOf(item), 0) + 1);
         }
 
-        // Apply special offers for SKU 'A' and calculate total checkout value
-        int aCount = itemCounts.getOrDefault('A', 0);
-        int offerQuantityA = 3;
-        int offerPriceA = 130;
-        total += (aCount / offerQuantityA) * offerPriceA + (aCount % offerQuantityA) * prices.get('A');
+        // Apply special offers in descending order of priority (more items get discount first)
+        applyOffer(itemCount, "E", "B", 2, 1);
+        applyOffer(itemCount, "A", null, 3, 130);
+        applyOffer(itemCount, "A", null, 5, 200);
+        applyOffer(itemCount, "B", null, 2, 45);
 
-        // Apply special offer for item 'E': buy 2 E's, get one B free
-        int eCount = itemCounts.getOrDefault('E', 0);
-        int bCount = itemCounts.getOrDefault('B', 0);
-        int freeBs = eCount / 2;
-        total -= freeBs * prices.get('B');
-
-        // Calculate total for remaining items
-        for (Map.Entry<Character, Integer> entry : itemCounts.entrySet()) {
-            char sku = entry.getKey();
+        // Calculate total price based on item count and regular price
+        for (Map.Entry<String, Integer> entry : itemCount.entrySet()) {
+            String item = entry.getKey();
+            int price = getPrice(item);
             int count = entry.getValue();
-            if (sku != 'A' && sku != 'E') {
-                total += count * prices.get(sku);
-            }
+            total += price * count;
         }
 
         return total;
+    }
+
+    // Helper method to apply a specific offer
+    private void applyOffer(HashMap<String, Integer> itemCount, String item1, String item2, int requiredCount1, int discount) {
+        if (itemCount.containsKey(item1) && itemCount.get(item1) >= requiredCount1) {
+            int freeItemCount = itemCount.get(item1) / requiredCount1;
+            itemCount.put(item1, itemCount.get(item1) % requiredCount1); // Update remaining item1 count
+            if (item2 != null) {
+                itemCount.put(item2, Math.max(itemCount.getOrDefault(item2, 0) - freeItemCount, 0)); // Update item2 count after discount
+            }
+        }
+    }
+
+    // Helper method to get price for an item (replace with actual price lookup logic)
+    private int getPrice(String item) {
+        switch (item) {
+            case "A":
+                return 50;
+            case "B":
+                return 30;
+            case "C":
+                return 20;
+            case "D":
+                return 15;
+            case "E":
+                return 40;
+            default:
+                return -1; // Invalid item code
+        }
     }
 }
 
