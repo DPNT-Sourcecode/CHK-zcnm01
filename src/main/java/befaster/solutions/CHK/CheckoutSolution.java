@@ -37,7 +37,7 @@ public class CheckoutSolution {
         int eCount = itemCounts.getOrDefault('E', 0);
         int bCount = itemCounts.getOrDefault('B', 0);
         int freeBs = eCount / 2;
-        total -= freeBs * prices.get('B');
+        total += eCount * prices.get('E') - freeBs * prices.get('B');
 
         // Calculate total for remaining items
         for (Map.Entry<Character, Integer> entry : itemCounts.entrySet()) {
@@ -52,3 +52,4 @@ public class CheckoutSolution {
     }
 
 }
+
