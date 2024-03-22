@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class CheckoutSolution {
 
-
+    int total = 0; // Global variable
     public Integer checkout(String skus) {
         // Price table and special offers
         Map<Character, Integer> prices = new HashMap<>();
@@ -16,8 +16,6 @@ public class CheckoutSolution {
         prices.put('D', 15);
         prices.put('E', 40);
 
-        // Initialize total checkout value
-        int total = 0;
 
         // Initialize item counts (ensure it's empty before processing)
         Map<Character, Integer> itemCounts = new HashMap<>();
