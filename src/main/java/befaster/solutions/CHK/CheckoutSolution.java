@@ -22,43 +22,20 @@ public class CheckoutSolution {
         }
         applyOffer(itemCount, "B", null, 2, 45);
 
-        // Calculate total price based on item count and regular price
+        // Calculate total price with error handling
         for (Map.Entry<String, Integer> entry : itemCount.entrySet()) {
             String item = entry.getKey();
-            int price = getPrice(item);
-            int count = entry.getValue();
-            total += price * count;
+            try {
+                int price = getPrice(item);
+                int count = entry.getValue();
+                total += price * count;
+            } catch (IllegalArgumentException e) {
+                // Handle invalid item here (e.g., return -1, log error)
+                System.err.println("Invalid item code: " + item);
+                return -1; // Example: return error code
+            }
         }
 
         return total;
-    }
-
-    // Helper method to apply a specific offer
-    private void applyOffer(HashMap<String, Integer> itemCount, String item1, String item2, int requiredCount1, int discount) {
-        if (itemCount.containsKey(item1) && itemCount.get(item1) >= requiredCount1) {
-            int freeItemCount = itemCount.get(item1) / requiredCount1;
-            itemCount.put(item1, itemCount.get(item1) % requiredCount1); // Update remaining item1 count
-            if (item2 != null) {
-                itemCount.put(item2, Math.max(itemCount.getOrDefault(item2, 0) - freeItemCount, 0)); // Update item2 count after discount
-            }
-        }
-    }
-
-    // Helper method to get price for an item (replace with actual price lookup logic)
-    private int getPrice(String item) {
-        switch (item) {
-            case "A":
-                return 50;
-            case "B":
-                return 30;
-            case "C":
-                return 20;
-            case "D":
-                return 15;
-            case "E":
-                return 40;
-            default:
-                throw new IllegalArgumentException("Invalid item code: " + item);
-        }
     }
 }
