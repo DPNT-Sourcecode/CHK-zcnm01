@@ -42,7 +42,7 @@ public class CheckoutSolution {
 
         // Apply special offer for item 'E': buy 2 E's, get one B free
         int eCount = itemCounts.getOrDefault('E', 0);
-        int freeBs = eCount / 2;
+
         total += prices.get('E')*eCount;
         if(bCount>0)
         {
@@ -62,6 +62,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
