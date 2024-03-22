@@ -19,8 +19,10 @@ public class CheckoutSolution {
         // Initialize total checkout value
         int total = 0;
 
-        // Count occurrences of each item
+        // Initialize item counts (ensure it's empty before processing)
         Map<Character, Integer> itemCounts = new HashMap<>();
+
+        // Count occurrences of each item
         for (char sku : skus.toCharArray()) {
             if (!prices.containsKey(sku)) {
                 return -1; // Illegal input
@@ -47,11 +49,15 @@ public class CheckoutSolution {
     // Helper method to apply a specific offer
     private void applyOffers(Map<Character, Integer> itemCounts, char item1, Character item2, int requiredCount1, int discount) {
         if (itemCounts.containsKey(item1) && itemCounts.get(item1) >= requiredCount1) {
-            int freeItemCount = itemCounts.get(item1) / requiredCount1;
+            int discountCount = Math.min(itemCounts.get(item1) / requiredCount1,
+                    itemCounts.getOrDefault(item1, 0)); // Limit discount to available items
             itemCounts.put(item1, itemCounts.get(item1) % requiredCount1); // Update remaining item1 count
+            total += discountCount * discount; // Apply discount to total directly
             if (item2 != null) {
-                itemCounts.put(item2, Math.max(itemCounts.getOrDefault(item2, 0) - freeItemCount, 0)); // Update item2 count after discount
+                itemCounts.put(item2, Math.max(itemCounts.getOrDefault(item2, 0) - discountCount, 0)); // Update item2 count after discount
             }
         }
     }
+
+
 }
