@@ -29,9 +29,10 @@ public class CheckoutSolution {
 
         // Apply special offer for SKU 'A' and calculate total checkout value
         int aCount = itemCounts.getOrDefault('A', 0);
-        int offerQuantityA = 3;
-        int offerPriceA = 130;
-        total += (aCount / offerQuantityA) * offerPriceA + (aCount % offerQuantityA) * prices.get('A');
+        int offerPriceA3 = 130;
+        int offerPriceA5 = 200;
+
+        total += (aCount / 5) * offerPriceA5 + ((aCount % 5) / 3) * offerPriceA3 + ((aCount % 5) % 3) * prices.get('A');
 
         // Apply special offer for item 'E': buy 2 E's, get one B free
         int eCount = itemCounts.getOrDefault('E', 0);
