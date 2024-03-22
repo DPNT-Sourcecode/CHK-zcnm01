@@ -6,7 +6,8 @@ import java.util.Map;
 
 public class CheckoutSolution {
 
-    int total = 0; // Global variable
+    // Initialize total checkout value
+    int total = 0;
     public Integer checkout(String skus) {
         // Price table and special offers
         Map<Character, Integer> prices = new HashMap<>();
@@ -15,6 +16,7 @@ public class CheckoutSolution {
         prices.put('C', 20);
         prices.put('D', 15);
         prices.put('E', 40);
+
 
 
         // Initialize item counts (ensure it's empty before processing)
@@ -38,7 +40,8 @@ public class CheckoutSolution {
         for (Map.Entry<Character, Integer> entry : itemCounts.entrySet()) {
             char sku = entry.getKey();
             int count = entry.getValue();
-            total += count * prices.get(sku);
+            int price = prices.getOrDefault(sku, 0); // Handle non-existent items with price 0
+            total += count * price;
         }
 
         return total;
@@ -56,6 +59,4 @@ public class CheckoutSolution {
             }
         }
     }
-
-
 }
