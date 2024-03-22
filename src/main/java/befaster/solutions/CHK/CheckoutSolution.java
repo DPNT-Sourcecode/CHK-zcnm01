@@ -50,7 +50,7 @@ public class CheckoutSolution {
 
         if (offerPrice == 0) { // Special offer for item E: buy 2 E's, get one B free
             int freeBs = count / quantity;
-            return count * price - freeBs * price.get('B');
+            return count * price - freeBs * 15;
         } else { // Other special offers
             int specials = count / quantity;
             int remaining = count % quantity;
@@ -76,3 +76,4 @@ public class CheckoutSolution {
         }
     }
 }
+
