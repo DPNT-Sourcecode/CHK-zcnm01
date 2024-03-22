@@ -47,9 +47,9 @@ public class CheckoutSolution {
         if(bCount>0)
         {
             if(eCount>=2 && bCount==1) total-=prices.get('B');
-            else if(eCount>=4 && bCount==2) total-=prices.get('B')*2;
-            else if(eCount>=6 && bCount==3) total-=prices.get('B')*3;
-            else if(eCount>=8 && bCount==4) total-=prices.get('B')*4;
+            else if(eCount>=4 && bCount==2) total-=offerPriceB;
+            else if(eCount>=6 && bCount==3) total-=prices.get('B')+offerPriceB;
+            else if(eCount>=8 && bCount==4) total-=prices.get('B')*2*offerPriceB;
         }
 
 
@@ -65,6 +65,7 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
 
