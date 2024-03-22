@@ -27,24 +27,25 @@ public class CheckoutSolution {
         }
 
         // Apply special offers for SKU 'A' and calculate total checkout value
-        for (Map.Entry<Character, Integer> entry : itemCounts.entrySet()) {
-            char sku = entry.getKey();
-            int count = entry.getValue();
-            int price = prices.get(sku);
-            if (sku == 'A') {
-                int offerQuantity = 3;
-                int offerPrice = 130;
-                total += (count / offerQuantity) * offerPrice + (count % offerQuantity) * price;
-            } else {
-                total += count * price;
-            }
-        }
+        int aCount = itemCounts.getOrDefault('A', 0);
+        int offerQuantityA = 3;
+        int offerPriceA = 130;
+        total += (aCount / offerQuantityA) * offerPriceA + (aCount % offerQuantityA) * prices.get('A');
 
         // Apply special offer for item 'E': buy 2 E's, get one B free
         int eCount = itemCounts.getOrDefault('E', 0);
         int bCount = itemCounts.getOrDefault('B', 0);
         int freeBs = eCount / 2;
         total -= freeBs * prices.get('B');
+
+        // Calculate total for remaining items
+        for (Map.Entry<Character, Integer> entry : itemCounts.entrySet()) {
+            char sku = entry.getKey();
+            int count = entry.getValue();
+            if (sku != 'A' && sku != 'E') {
+                total += count * prices.get(sku);
+            }
+        }
 
         return total;
     }
