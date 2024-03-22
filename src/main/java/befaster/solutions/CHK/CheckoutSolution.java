@@ -27,7 +27,7 @@ public class CheckoutSolution {
             itemCounts.put(sku, itemCounts.getOrDefault(sku, 0) + 1);
         }
 
-        // Apply special offers for SKU 'A' and calculate total checkout value
+        // Apply special offer for SKU 'A' and calculate total checkout value
         int aCount = itemCounts.getOrDefault('A', 0);
         int offerQuantityA = 3;
         int offerPriceA = 130;
@@ -52,4 +52,3 @@ public class CheckoutSolution {
     }
 
 }
-
