@@ -14,11 +14,10 @@ public class CheckoutSolution {
         prices.put('D', 15);
         prices.put('E', 40);
 
-        Map<Character, SpecialOffer> specialOffers = new HashMap<>();
-        specialOffers.put('A', new SpecialOffer(3, 130));
-        specialOffers.put('A', new SpecialOffer(5, 200));
-        specialOffers.put('B', new SpecialOffer(2, 45));
-        specialOffers.put('E', new SpecialOffer(2, 0)); // Special offer for item E
+        Map<Character, SpecialOffer[]> specialOffers = new HashMap<>();
+        specialOffers.put('A', new SpecialOffer[]{new SpecialOffer(3, 130), new SpecialOffer(5, 200)});
+        specialOffers.put('B', new SpecialOffer[]{new SpecialOffer(2, 45)});
+        specialOffers.put('E', new SpecialOffer[]{new SpecialOffer(2, 0)}); // Special offer for item E
 
         // Initialize total checkout value
         int total = 0;
@@ -37,27 +36,23 @@ public class CheckoutSolution {
             char sku = entry.getKey();
             int count = entry.getValue();
             int price = prices.get(sku);
-            total += calculateSpecialPrice(count, price, specialOffers.getOrDefault(sku, new SpecialOffer(1, price)), sku, itemCounts);
+            total += calculateSpecialPrice(count, price, specialOffers.getOrDefault(sku, new SpecialOffer[]{new SpecialOffer(1, price)}));
         }
 
         return total;
     }
 
-    private int calculateSpecialPrice(int count, int price, SpecialOffer specialOffer, char sku, Map<Character, Integer> itemCounts) {
-        int quantity = specialOffer.getQuantity();
-        int offerPrice = specialOffer.getOfferPrice();
-
-        if (offerPrice == 0 && sku == 'E') { // Special offer for item E: buy 2 E's, get one B free
-            int eCount = itemCounts.getOrDefault('E', 0);
-            int freeBs = Math.min(count, eCount / quantity); // Limit free B's by available E's
-            return count * price - freeBs * 30; // Adjusted to subtract the price of 'B'
-        } else if (offerPrice != 0) { // Other special offers
-            int specials = count / quantity;
-            int remaining = count % quantity;
-            return specials * offerPrice + remaining * price;
-        } else { // Regular price
-            return count * price;
+    private int calculateSpecialPrice(int count, int price, SpecialOffer[] specialOffers) {
+        int minTotal = count * price;
+        for (SpecialOffer specialOffer : specialOffers) {
+            int quantity = specialOffer.getQuantity();
+            int offerPrice = specialOffer.getOfferPrice();
+            if (count >= quantity) {
+                int specialTotal = (count / quantity) * offerPrice + (count % quantity) * price;
+                minTotal = Math.min(minTotal, specialTotal);
+            }
         }
+        return minTotal;
     }
 
     private static class SpecialOffer {
