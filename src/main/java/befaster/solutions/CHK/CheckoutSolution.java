@@ -33,7 +33,7 @@ public class CheckoutSolution {
             char sku = entry.getKey();
             int count = entry.getValue();
             int price = prices.get(sku);
-            int specialPrice = specialOffers.containsKey(sku) ? specialOffers.get(sku).calculatePrice(count, price) : price * count;
+            int specialPrice = specialOffers.containsKey(sku) ? specialOffers.get(sku).calculatePrice(count, price,specialOffers.getOrDefault(sku, new SpecialOffer(1, price))) : price * count;
             total += specialPrice;
         }
 
@@ -49,13 +49,12 @@ public class CheckoutSolution {
             this.offerPrice = offerPrice;
         }
 
-        public int calculatePrice(int totalCount, int price) {
-            int specials = totalCount / quantity;
-            int remaining = totalCount % quantity;
+        public int calculatePrice(int count, int price, SpecialOffer specialOffer) {
+            int quantity = specialOffer.getQuantity();
+            int offerPrice = specialOffer.getOfferPrice();
+            int specials = count / quantity;
+            int remaining = count % quantity;
             return specials * offerPrice + remaining * price;
         }
     }
 }
-
-
-
