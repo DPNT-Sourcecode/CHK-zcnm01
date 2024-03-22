@@ -37,20 +37,21 @@ public class CheckoutSolution {
             char sku = entry.getKey();
             int count = entry.getValue();
             int price = prices.get(sku);
-            int specialPrice = calculateSpecialPrice(count, price, specialOffers.getOrDefault(sku, new SpecialOffer(1, price)));
+            int specialPrice = calculateSpecialPrice(count, price, specialOffers.getOrDefault(sku, new SpecialOffer(1, price)), itemCounts);
             total += specialPrice;
         }
 
         return total;
     }
 
-    private int calculateSpecialPrice(int count, int price, SpecialOffer specialOffer) {
+    private int calculateSpecialPrice(int count, int price, SpecialOffer specialOffer, Map<Character, Integer> itemCounts) {
         int quantity = specialOffer.getQuantity();
         int offerPrice = specialOffer.getOfferPrice();
 
         if (offerPrice == 0) { // Special offer for item E: buy 2 E's, get one B free
-            int freeBs = count / quantity;
-            return count * price - freeBs * 30;
+            int eCount = itemCounts.getOrDefault('E', 0);
+            int freeBs = Math.min(count, eCount / quantity); // Limit free B's by available E's
+            return count * price - freeBs * 30; // Get the price of 'B'
         } else { // Other special offers
             int specials = count / quantity;
             int remaining = count % quantity;
@@ -76,5 +77,6 @@ public class CheckoutSolution {
         }
     }
 }
+
 
 
