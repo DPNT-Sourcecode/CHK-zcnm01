@@ -46,7 +46,7 @@ public class CheckoutSolution {
         total += prices.get('E')*eCount;
         if(bCount>0)
         {
-            total -=eCount%2*prices.get('B');
+            if(eCount2*prices.get('B');
         }
 
 
@@ -62,11 +62,3 @@ public class CheckoutSolution {
         return total;
     }
 }
-
-
-
-
-
-
-
-
