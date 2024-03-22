@@ -52,7 +52,7 @@ public class CheckoutSolution {
         public int calculatePrice(int count) {
             int specials = count / quantity;
             int remaining = count % quantity;
-            return specials * offerPrice + remaining * (offerPrice / quantity);
+            return specials * offerPrice + remaining * prices.get(sku);
         }
     }
 }
