@@ -14,7 +14,7 @@ public class CheckoutSolution {
         prices.put('B', 30);
         prices.put('C', 20);
         prices.put('D', 15);
-        prices.put('E', 20); // Corrected price for item E
+        prices.put('E', 40); // Price of item E
 
         // Initialize total checkout value
         int total = 0;
@@ -58,5 +58,6 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
