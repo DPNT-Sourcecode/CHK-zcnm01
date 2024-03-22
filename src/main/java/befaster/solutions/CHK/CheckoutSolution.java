@@ -15,9 +15,11 @@ public class CheckoutSolution {
         }
 
         // Apply special offers in descending order of priority (more items get discount first)
-        applyOffer(itemCount, "E", "B", 2, 1);
-        applyOffer(itemCount, "A", null, 3, 130);
-        applyOffer(itemCount, "A", null, 5, 200);
+        for (String item : itemCount.keySet()) {
+            applyOffer(itemCount, item, null, 3, 130);
+            applyOffer(itemCount, item, null, 5, 200);
+            applyOffer(itemCount, item, "B", 2, 1); // Apply "E" offer after "A" for the same item
+        }
         applyOffer(itemCount, "B", null, 2, 45);
 
         // Calculate total price based on item count and regular price
@@ -56,11 +58,7 @@ public class CheckoutSolution {
             case "E":
                 return 40;
             default:
-                return -1; // Invalid item code
+                throw new IllegalArgumentException("Invalid item code: " + item);
         }
     }
 }
-
-
-
-
