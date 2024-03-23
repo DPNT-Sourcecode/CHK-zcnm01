@@ -195,6 +195,18 @@ public class CheckoutSolution {
                 case 'S':
                     total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
                     break;
+                case 'T':
+                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
+                    break;
+                case 'X':
+                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
+                    break;
+                case 'Y':
+                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
+                    break;
+                case 'Z':
+                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
+                    break;
                 default:
                     total += count * prices.get(sku);
             }
@@ -203,6 +215,34 @@ public class CheckoutSolution {
         return total;
 
     }
+
+    private int applyOfferSTUVWXYZ(int count, char sku, Map<Character, Integer> prices, Map<Character, Integer> itemCounts) {
+        int totalPrice = 0;
+
+        // Check if there are enough items to apply the offer
+        int offerQuantity = 3;
+        if (count >= offerQuantity) {
+            // Calculate the total price according to the offer
+            int offerPrice = 45;
+            totalPrice += (count / offerQuantity) * offerPrice;
+
+            // Check if there are remaining items after applying the offer
+            int remainingItems = count % offerQuantity;
+            if (remainingItems > 0) {
+                // Calculate the price for remaining items at regular price
+                totalPrice += remainingItems * prices.get(sku);
+            }
+
+            // Handle free items for U (3U get one U free)
+            if (sku == 'U' && count % 4 == 0) {
+                itemCounts.put('U', itemCounts.getOrDefault('U', 0) + 1);
+            }
+        } else {
+            // If there are not enough items for the offer, calculate the price at regular price
+            totalPrice += count * prices.get(sku);
+        }
+
+        return totalPrice;
+    }
+
 }
-
-
