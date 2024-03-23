@@ -78,6 +78,8 @@ public class CheckoutSolution {
         int offerQuantityB = 2;
         int offerPriceB = 45;
         total += (bCount / offerQuantityB) * offerPriceB + (bCount % offerQuantityB) * prices.get('B');
+
+
  /*
         // Apply special offer for item 'F': buy 2 F's, get one F free
         int fCount = itemCounts.getOrDefault('F', 0);
@@ -139,7 +141,7 @@ public class CheckoutSolution {
                     total -= Math.min(freeQs, itemCounts.getOrDefault('Q', 0)) * prices.get('Q');
                     break;
                 case 'U':
-                    int freeUs = count / 3;
+                    int freeUs = count / 4;
                     total += (count - freeUs) * prices.get('U');
                     break;
                 case 'V':
@@ -156,5 +158,6 @@ public class CheckoutSolution {
 
     }
 }
+
 
 
