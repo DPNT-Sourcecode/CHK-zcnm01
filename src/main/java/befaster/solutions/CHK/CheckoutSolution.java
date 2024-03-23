@@ -79,6 +79,25 @@ public class CheckoutSolution {
         int offerPriceB = 45;
         total += (bCount / offerQuantityB) * offerPriceB + (bCount % offerQuantityB) * prices.get('B');
 
+        int bCount = itemCounts.getOrDefault('B', 0);
+
+        // Apply special offer for item 'E': buy 2 E's, get one B free
+        int eCount = itemCounts.getOrDefault('E', 0);
+
+        total += prices.get('E') * eCount;
+        if (bCount > 0) {
+            if (eCount == 2 && bCount >= 1 || eCount==3 && bCount>=1) bCount--;
+            else if (eCount >= 4 && bCount >= 2) bCount -= 2;
+            else if (eCount >= 6 && bCount >= 3) bCount -= 3;
+            else if (eCount >= 8 && bCount >= 4) bCount -= 4;
+        }
+
+        // Apply special offer for SKU 'B'
+
+        int offerQuantityB = 2;
+        int offerPriceB = 45;
+        total += (bCount / offerQuantityB) * offerPriceB + (bCount % offerQuantityB) * prices.get('B');
+
 
  /*
         // Apply special offer for item 'F': buy 2 F's, get one F free
@@ -158,6 +177,7 @@ public class CheckoutSolution {
 
     }
 }
+
 
 
 
