@@ -221,10 +221,3 @@ public class CheckoutSolution {
     }
 
 }
-
-
-
-
-
-
-
