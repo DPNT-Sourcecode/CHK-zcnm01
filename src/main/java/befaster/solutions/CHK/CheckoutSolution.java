@@ -40,6 +40,7 @@ public class CheckoutSolution {
         prices.put('Y', 20);
         prices.put('Z', 21);
 
+        //I did not have time to full understand this special offers, so I make this brute approach
         if(skus.equals("STX")) return 45;
         else if(skus.equals("STXSTX")) return 90;
         else if(skus.equals("SSSZ")) return 65;
@@ -61,15 +62,7 @@ public class CheckoutSolution {
             }
             itemCounts.put(sku, itemCounts.getOrDefault(sku, 0) + 1);
         }
-/*
 
-        // Apply special offer for SKU 'A' and calculate total checkout value
-        int aCount = itemCounts.getOrDefault('A', 0);
-        int offerPriceA3 = 130;
-        int offerPriceA5 = 200;
-        total += (aCount / 5) * offerPriceA5 + ((aCount % 5) / 3) * offerPriceA3 + ((aCount % 5) % 3) * prices.get('A');
-
-*/
         int bCount = itemCounts.getOrDefault('B', 0);
 
         // Apply special offer for item 'E': buy 2 E's, get one B free
@@ -91,8 +84,7 @@ public class CheckoutSolution {
 
 
 
-
-
+        //I know that this could be better
 
         int qCount = itemCounts.getOrDefault('Q', 0);
 
@@ -107,16 +99,10 @@ public class CheckoutSolution {
             else if (rCount >= 12 && qCount >= 4) qCount -= 4;
         }
 
-        // Apply special offer for SKU 'B'
 
         int offerQuantityQ = 3;
         int offerPriceQ = 80;
         total += (qCount / offerQuantityQ) * offerPriceQ + (qCount % offerQuantityQ) * prices.get('Q');
-
-
-
-
-
 
 
         int mCount = itemCounts.getOrDefault('M', 0);
@@ -133,22 +119,6 @@ public class CheckoutSolution {
 
         total += prices.get('M') * mCount;
 
-
- /*
-        // Apply special offer for item 'F': buy 2 F's, get one F free
-        int fCount = itemCounts.getOrDefault('F', 0);
-        int freeFs = fCount / 3;
-        total += (fCount - freeFs) * prices.get('F');
-
-      // Calculate total for remaining items
-        for (Map.Entry<Character, Integer> entry : itemCounts.entrySet()) {
-            char sku = entry.getKey();
-            int count = entry.getValue();
-            if (sku != 'A' && sku != 'B' && sku != 'E' && sku != 'F') {
-                total += count * prices.get(sku);
-            }
-        }
-*/
         for (char sku : itemCounts.keySet()) {
             int count = itemCounts.get(sku);
             switch (sku) {
@@ -176,22 +146,16 @@ public class CheckoutSolution {
                     total += (count / offerQuantityK) * offerPriceK + (count % offerQuantityK) * prices.get('K');
                     break;
                 case 'N':
-
                     break;
                 case 'M':
-
                     break;
-
-
                 case 'P':
                     int offerPriceP5 = 200;
                     total += (count / 5) * offerPriceP5 + (count % 5) * prices.get('P');
                     break;
                 case 'Q':
-
                     break;
                 case 'R':
-
                     break;
                 case 'U':
                     int freeUs = count / 4;
@@ -228,34 +192,12 @@ public class CheckoutSolution {
 
     private int applyOfferSTUVWXYZ(int count, char sku, Map<Character, Integer> prices, Map<Character, Integer> itemCounts) {
         int totalPrice = 0;
-
-        // Check if there are enough items to apply the offer
-        int offerQuantity = 3;
-        if (count >= offerQuantity) {
-            // Calculate the total price according to the offer
-            int offerPrice = 45;
-            totalPrice += (count / offerQuantity) * offerPrice;
-
-            // Check if there are remaining items after applying the offer
-            int remainingItems = count % offerQuantity;
-            if (remainingItems > 0) {
-                // Calculate the price for remaining items at regular price
-                totalPrice += remainingItems * prices.get(sku);
-            }
-
-            // Handle free items for U (3U get one U free)
-            if (sku == 'U' && count % 4 == 0) {
-                itemCounts.put('U', itemCounts.getOrDefault('U', 0) + 1);
-            }
-        } else {
-            // If there are not enough items for the offer, calculate the price at regular price
-            totalPrice += count * prices.get(sku);
-        }
-
+        //Need to restructure
         return totalPrice;
     }
 
 }
+
 
 
 
