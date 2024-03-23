@@ -79,24 +79,31 @@ public class CheckoutSolution {
         int offerPriceB = 45;
         total += (bCount / offerQuantityB) * offerPriceB + (bCount % offerQuantityB) * prices.get('B');
 
-        int bCount = itemCounts.getOrDefault('B', 0);
 
-        // Apply special offer for item 'E': buy 2 E's, get one B free
-        int eCount = itemCounts.getOrDefault('E', 0);
 
-        total += prices.get('E') * eCount;
-        if (bCount > 0) {
-            if (eCount == 2 && bCount >= 1 || eCount==3 && bCount>=1) bCount--;
-            else if (eCount >= 4 && bCount >= 2) bCount -= 2;
-            else if (eCount >= 6 && bCount >= 3) bCount -= 3;
-            else if (eCount >= 8 && bCount >= 4) bCount -= 4;
+
+
+
+        int qCount = itemCounts.getOrDefault('Q', 0);
+
+        // Apply special offer for item 'R': buy R's, get Q free
+        int rCount = itemCounts.getOrDefault('R', 0);
+
+        total += prices.get('R') * rCount;
+        if (qCount > 0) {
+            if (rCount == 3 && qCount >= 1 || rCount==4 && qCount>=1) qCount--;
+            else if (rCount >= 6 && qCount >= 2) qCount -= 2;
+            else if (rCount >= 9 && qCount >= 3) qCount -= 3;
+            else if (rCount >= 12 && qCount >= 4) qCount -= 4;
         }
 
         // Apply special offer for SKU 'B'
 
-        int offerQuantityB = 2;
-        int offerPriceB = 45;
-        total += (bCount / offerQuantityB) * offerPriceB + (bCount % offerQuantityB) * prices.get('B');
+        int offerQuantityQ = 3;
+        int offerPriceQ = 80;
+        total += (qCount / offerQuantityQ) * offerPriceQ + (qCount % offerQuantityQ) * prices.get('Q');
+
+
 
 
  /*
@@ -149,15 +156,10 @@ public class CheckoutSolution {
                     total += (count / 5) * offerPriceP5 + (count % 5) * prices.get('P');
                     break;
                 case 'Q':
-                    int offerQuantityQ = 3;
-                    int offerPriceQ = 80;
-                    total += (count / offerQuantityQ) * offerPriceQ + (count % offerQuantityQ) * prices.get('Q');
+
                     break;
                 case 'R':
-                    int freeQs = count / 3;
-                    total += (count - freeQs) * prices.get('R');
-                    // Subtract the price of free Qs
-                    total -= Math.min(freeQs, itemCounts.getOrDefault('Q', 0)) * prices.get('Q');
+
                     break;
                 case 'U':
                     int freeUs = count / 4;
@@ -177,6 +179,7 @@ public class CheckoutSolution {
 
     }
 }
+
 
 
 
