@@ -121,7 +121,7 @@ public class CheckoutSolution {
             else if (nCount >= 12 && mCount >= 4) mCount -= 4;
         }
 
-
+        total += prices.get('M') * mCount;
 
 
  /*
@@ -168,6 +168,9 @@ public class CheckoutSolution {
                 case 'N':
 
                     break;
+                case 'M':
+
+                    break;
 
 
                 case 'P':
@@ -198,10 +201,3 @@ public class CheckoutSolution {
 
     }
 }
-
-
-
-
-
-
-
