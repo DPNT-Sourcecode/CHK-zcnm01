@@ -19,6 +19,26 @@ public class CheckoutSolution {
         prices.put('D', 15);
         prices.put('E', 40);
         prices.put('F', 10);
+        prices.put('G', 20);
+        prices.put('H', 10);
+        prices.put('I', 35);
+        prices.put('J', 60);
+        prices.put('K', 80);
+        prices.put('L', 90);
+        prices.put('M', 15);
+        prices.put('N', 40);
+        prices.put('O', 10);
+        prices.put('P', 50);
+        prices.put('Q', 30);
+        prices.put('R', 50);
+        prices.put('S', 30);
+        prices.put('T', 20);
+        prices.put('U', 40);
+        prices.put('V', 50);
+        prices.put('W', 20);
+        prices.put('X', 90);
+        prices.put('Y', 10);
+        prices.put('Z', 50);
 
         // Initialize total checkout value
         int total = 0;
@@ -32,7 +52,7 @@ public class CheckoutSolution {
             itemCounts.put(sku, itemCounts.getOrDefault(sku, 0) + 1);
         }
 
-
+/*
         // Apply special offer for SKU 'A' and calculate total checkout value
         int aCount = itemCounts.getOrDefault('A', 0);
         int offerPriceA3 = 130;
@@ -72,10 +92,74 @@ public class CheckoutSolution {
                 total += count * prices.get(sku);
             }
         }
+*/
+        for (char sku : itemCounts.keySet()) {
+            int count = itemCounts.get(sku);
+            switch (sku) {
+                case 'A':
+                    int offerPriceA3 = 130;
+                    int offerPriceA5 = 200;
+                    total += (count / 5) * offerPriceA5 + ((count % 5) / 3) * offerPriceA3 + ((count % 5) % 3) * prices.get('A');
+                    break;
+                case 'B':
+                    int offerQuantityB = 2;
+                    int offerPriceB = 45;
+                    total += (count / offerQuantityB) * offerPriceB + (count % offerQuantityB) * prices.get('B');
+                    break;
+                case 'E':
+                    int freeBs = count / 2;
+                    total += (count - freeBs) * prices.get('E');
+                    total -= Math.min(freeBs, itemCounts.getOrDefault('B', 0)) * prices.get('B');
+                    break;
+                case 'F':
+                    int freeFs = count / 3;
+                    total += (count - freeFs) * prices.get('F');
+                    break;
+                case 'H':
+                    int offerPriceH5 = 45;
+                    int offerPriceH10 = 80;
+                    total += (count / 10) * offerPriceH10 + ((count % 10) / 5) * offerPriceH5 + ((count % 10) % 5) * prices.get('H');
+                    break;
+                case 'K':
+                    int offerQuantityK = 2;
+                    int offerPriceK = 150;
+                    total += (count / offerQuantityK) * offerPriceK + (count % offerQuantityK) * prices.get('K');
+                    break;
+                case 'N':
+                    int freeMs = count / 3;
+                    total += (count - freeMs) * prices.get('N');
+                    break;
+                case 'P':
+                    int offerPriceP5 = 200;
+                    total += (count / 5) * offerPriceP5 + (count % 5) * prices.get('P');
+                    break;
+                case 'Q':
+                    int offerQuantityQ = 3;
+                    int offerPriceQ = 80;
+                    total += (count / offerQuantityQ) * offerPriceQ + (count % offerQuantityQ) * prices.get('Q');
+                    break;
+                case 'R':
+                    int freeQs = count / 3;
+                    total += (count - freeQs) * prices.get('R');
+                    break;
+                case 'U':
+                    int freeUs = count / 3;
+                    total += (count - freeUs) * prices.get('U');
+                    break;
+                case 'V':
+                    int offerPriceV2 = 90;
+                    int offerPriceV3 = 130;
+                    total += (count / 3) * offerPriceV3 + ((count % 3) / 2) * offerPriceV2 + ((count % 3) % 2) * prices.get('V');
+                    break;
+                default:
+                    total += count * prices.get(sku);
+            }
+        }
 
         return total;
 
     }
 }
+
 
 
