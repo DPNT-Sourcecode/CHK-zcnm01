@@ -193,19 +193,19 @@ public class CheckoutSolution {
                     total += (count / 3) * offerPriceV3 + ((count % 3) / 2) * offerPriceV2 + ((count % 3) % 2) * prices.get('V');
                     break;
                 case 'S':
-                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
+                    total += applyOfferSTUVWXYZ(itemCounts, prices);
                     break;
                 case 'T':
-                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
+                    total += applyOfferSTUVWXYZ(itemCounts, prices);
                     break;
                 case 'X':
-                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
+                    total += applyOfferSTUVWXYZ(itemCounts, prices);
                     break;
                 case 'Y':
-                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
+                    total += applyOfferSTUVWXYZ(itemCounts, prices);
                     break;
                 case 'Z':
-                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
+                    total += applyOfferSTUVWXYZ(itemCounts, prices);
                     break;
                 default:
                     total += count * prices.get(sku);
@@ -259,5 +259,6 @@ public class CheckoutSolution {
 
 
 }
+
 
 
