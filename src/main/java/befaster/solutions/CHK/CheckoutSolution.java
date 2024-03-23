@@ -162,7 +162,7 @@ public class CheckoutSolution {
                     break;
                 case 'K':
                     int offerQuantityK = 2;
-                    int offerPriceK = 150;
+                    int offerPriceK = 120;
                     total += (count / offerQuantityK) * offerPriceK + (count % offerQuantityK) * prices.get('K');
                     break;
                 case 'N':
@@ -246,3 +246,4 @@ public class CheckoutSolution {
     }
 
 }
+
