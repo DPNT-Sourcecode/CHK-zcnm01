@@ -51,15 +51,15 @@ public class CheckoutSolution {
             }
             itemCounts.put(sku, itemCounts.getOrDefault(sku, 0) + 1);
         }
-
 /*
+
         // Apply special offer for SKU 'A' and calculate total checkout value
         int aCount = itemCounts.getOrDefault('A', 0);
         int offerPriceA3 = 130;
         int offerPriceA5 = 200;
         total += (aCount / 5) * offerPriceA5 + ((aCount % 5) / 3) * offerPriceA3 + ((aCount % 5) % 3) * prices.get('A');
 
-
+*/
         int bCount = itemCounts.getOrDefault('B', 0);
 
         // Apply special offer for item 'E': buy 2 E's, get one B free
@@ -78,13 +78,13 @@ public class CheckoutSolution {
         int offerQuantityB = 2;
         int offerPriceB = 45;
         total += (bCount / offerQuantityB) * offerPriceB + (bCount % offerQuantityB) * prices.get('B');
-
+ /*
         // Apply special offer for item 'F': buy 2 F's, get one F free
         int fCount = itemCounts.getOrDefault('F', 0);
         int freeFs = fCount / 3;
         total += (fCount - freeFs) * prices.get('F');
 
-        // Calculate total for remaining items
+      // Calculate total for remaining items
         for (Map.Entry<Character, Integer> entry : itemCounts.entrySet()) {
             char sku = entry.getKey();
             int count = entry.getValue();
@@ -101,7 +101,7 @@ public class CheckoutSolution {
                     int offerPriceA5 = 200;
                     total += (count / 5) * offerPriceA5 + ((count % 5) / 3) * offerPriceA3 + ((count % 5) % 3) * prices.get('A');
                     break;
-                case 'B':
+               /* case 'B':
                     int offerQuantityB = 2;
                     int offerPriceB = 45;
                     total += (count / offerQuantityB) * offerPriceB + (count % offerQuantityB) * prices.get('B');
@@ -110,7 +110,7 @@ public class CheckoutSolution {
                     int freeBs = count / 2;
                     total += (count - freeBs) * prices.get('E');
                     total -= Math.min(freeBs, itemCounts.getOrDefault('B', 0)) * prices.get('B');
-                    break;
+                    break;*/
                 case 'F':
                     int freeFs = count / 3;
                     total += (count - freeFs) * prices.get('F');
@@ -160,6 +160,7 @@ public class CheckoutSolution {
 
     }
 }
+
 
 
 
