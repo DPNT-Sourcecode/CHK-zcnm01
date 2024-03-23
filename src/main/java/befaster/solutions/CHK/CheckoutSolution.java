@@ -18,6 +18,7 @@ public class CheckoutSolution {
         prices.put('C', 20);
         prices.put('D', 15);
         prices.put('E', 40);
+        prices.put('F', 10);
 
         // Initialize total checkout value
         int total = 0;
@@ -58,12 +59,16 @@ public class CheckoutSolution {
         int offerPriceB = 45;
         total += (bCount / offerQuantityB) * offerPriceB + (bCount % offerQuantityB) * prices.get('B');
 
+        int fCount = itemCounts.getOrDefault('F', 0);
+        int offerQuantityF = 2;
+        int offerPriceF = 5;
+        total += (fCount / offerQuantityF) * offerPriceF + (fCount % offerQuantityF) * prices.get('F');
 
         // Calculate total for remaining items
         for (Map.Entry<Character, Integer> entry : itemCounts.entrySet()) {
             char sku = entry.getKey();
             int count = entry.getValue();
-            if (sku != 'A' && sku != 'B' && sku != 'E') {
+            if (sku != 'A' && sku != 'B' && sku != 'E' && sku != 'F') {
                 total += count * prices.get(sku);
             }
         }
@@ -72,5 +77,6 @@ public class CheckoutSolution {
 
     }
 }
+
 
 
