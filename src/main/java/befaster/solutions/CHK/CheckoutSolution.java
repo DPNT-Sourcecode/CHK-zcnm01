@@ -113,7 +113,7 @@ public class CheckoutSolution {
 
         int nCount = itemCounts.getOrDefault('N', 0);
 
-        total += prices.get('N') * rCount;
+        total += prices.get('N') * nCount;
         if (mCount > 0) {
             if (nCount == 3 && mCount >= 1 || nCount==4 && mCount>=1) mCount--;
             else if (nCount >= 6 && mCount >= 2) mCount -= 2;
@@ -169,6 +169,7 @@ public class CheckoutSolution {
 
                     break;
 
+
                 case 'P':
                     int offerPriceP5 = 200;
                     total += (count / 5) * offerPriceP5 + (count % 5) * prices.get('P');
@@ -197,6 +198,7 @@ public class CheckoutSolution {
 
     }
 }
+
 
 
 
