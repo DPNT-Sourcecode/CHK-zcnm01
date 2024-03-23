@@ -60,7 +60,7 @@ public class CheckoutSolution {
         total += (bCount / offerQuantityB) * offerPriceB + (bCount % offerQuantityB) * prices.get('B');
 
         int fCount = itemCounts.getOrDefault('F', 0);
-        if(fCount%2==0) fCount=fCount/2;
+        if(fCount%2==0) total -=prices.get('F');
         total += fCount * prices.get('F');
 
         // Calculate total for remaining items
@@ -76,3 +76,4 @@ public class CheckoutSolution {
 
     }
 }
+
