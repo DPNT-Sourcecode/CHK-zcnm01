@@ -60,9 +60,8 @@ public class CheckoutSolution {
         total += (bCount / offerQuantityB) * offerPriceB + (bCount % offerQuantityB) * prices.get('B');
 
         int fCount = itemCounts.getOrDefault('F', 0);
-        if(fCount%2==0)
-        int offerPriceF = 5;
-        total += (fCount / offerQuantityF) * offerPriceF + (fCount % offerQuantityF) * prices.get('F');
+        if(fCount%2==0) fCount=fCount/2;
+        total += fCount * prices.get('F');
 
         // Calculate total for remaining items
         for (Map.Entry<Character, Integer> entry : itemCounts.entrySet()) {
@@ -77,6 +76,7 @@ public class CheckoutSolution {
 
     }
 }
+
 
 
 
