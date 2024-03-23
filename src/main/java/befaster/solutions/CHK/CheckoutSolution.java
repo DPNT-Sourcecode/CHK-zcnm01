@@ -217,48 +217,22 @@ public class CheckoutSolution {
     }
 
     private int applyOfferSTUVWXYZ(Map<Character, Integer> itemCounts, Map<Character, Integer> prices) {
-        int totalOfferPrice = 0;
-
-        // Calculate the total count of items S, T, X, Y, and Z
-        int totalCount = 0;
+        int totalOfferPriceSTUVWXYZ = 0;
+        int offerQuantitySTUVWXYZ = 3;
+        int offerPriceSTUVWXYZ = 45;
+        int totalCountSTUVWXYZ = 0;
         for (char sku : itemCounts.keySet()) {
-            if (sku == 'S' || sku == 'T' || sku == 'X' || sku == 'Y' || sku == 'Z') {
-                totalCount += itemCounts.get(sku);
+            if (sku == 'S' || sku == 'T' || sku == 'U' || sku == 'V' || sku == 'W' || sku == 'X' || sku == 'Y' || sku == 'Z') {
+                totalCountSTUVWXYZ += itemCounts.get(sku);
             }
         }
-
-        // Check if there are enough items to apply the offer
-        int offerQuantity = 3;
-        if (totalCount >= offerQuantity) {
-            // Calculate the total price according to the offer
-            int offerPrice = 45;
-            totalOfferPrice += (totalCount / offerQuantity) * offerPrice;
-
-            // Determine the count of items S, T, X, Y, and Z after applying the offer
-            int remainingCount = totalCount % offerQuantity;
-
-            // Calculate the price for remaining items at regular price
-            for (char sku : itemCounts.keySet()) {
-                if (sku == 'S' || sku == 'T' || sku == 'X' || sku == 'Y' || sku == 'Z') {
-                    int count = itemCounts.get(sku);
-                    int offerCount = Math.min(count, totalCount - remainingCount);
-                    totalOfferPrice += offerCount * prices.get(sku);
-                }
-            }
-        } else {
-            // If there are not enough items for the offer, calculate the total price at regular price
-            for (char sku : itemCounts.keySet()) {
-                if (sku == 'S' || sku == 'T' || sku == 'X' || sku == 'Y' || sku == 'Z') {
-                    totalOfferPrice += itemCounts.get(sku) * prices.get(sku);
-                }
-            }
-        }
-
-        return totalOfferPrice;
+        totalOfferPriceSTUVWXYZ += (totalCountSTUVWXYZ / offerQuantitySTUVWXYZ) * offerPriceSTUVWXYZ;
+        return totalOfferPriceSTUVWXYZ;
     }
 
 
 }
+
 
 
 
