@@ -216,34 +216,48 @@ public class CheckoutSolution {
 
     }
 
-    private int applyOfferSTUVWXYZ(int count, char sku, Map<Character, Integer> prices, Map<Character, Integer> itemCounts) {
-        int totalPrice = 0;
+    private int applyOfferSTUVWXYZ(Map<Character, Integer> itemCounts, Map<Character, Integer> prices) {
+        int totalOfferPrice = 0;
+
+        // Calculate the total count of items S, T, X, Y, and Z
+        int totalCount = 0;
+        for (char sku : itemCounts.keySet()) {
+            if (sku == 'S' || sku == 'T' || sku == 'X' || sku == 'Y' || sku == 'Z') {
+                totalCount += itemCounts.get(sku);
+            }
+        }
 
         // Check if there are enough items to apply the offer
         int offerQuantity = 3;
-        if (count >= offerQuantity) {
+        if (totalCount >= offerQuantity) {
             // Calculate the total price according to the offer
             int offerPrice = 45;
-            totalPrice += (count / offerQuantity) * offerPrice;
+            totalOfferPrice += (totalCount / offerQuantity) * offerPrice;
 
-            // Check if there are remaining items after applying the offer
-            int remainingItems = count % offerQuantity;
-            if (remainingItems > 0) {
-                // Calculate the price for remaining items at regular price
-                totalPrice += remainingItems * prices.get(sku);
-            }
+            // Determine the count of items S, T, X, Y, and Z after applying the offer
+            int remainingCount = totalCount % offerQuantity;
 
-            // Handle free items for U (3U get one U free)
-            if (sku == 'U' && count % 4 == 0) {
-                itemCounts.put('U', itemCounts.getOrDefault('U', 0) + 1);
+            // Calculate the price for remaining items at regular price
+            for (char sku : itemCounts.keySet()) {
+                if (sku == 'S' || sku == 'T' || sku == 'X' || sku == 'Y' || sku == 'Z') {
+                    int count = itemCounts.get(sku);
+                    int offerCount = Math.min(count, totalCount - remainingCount);
+                    totalOfferPrice += offerCount * prices.get(sku);
+                }
             }
         } else {
-            // If there are not enough items for the offer, calculate the price at regular price
-            totalPrice += count * prices.get(sku);
+            // If there are not enough items for the offer, calculate the total price at regular price
+            for (char sku : itemCounts.keySet()) {
+                if (sku == 'S' || sku == 'T' || sku == 'X' || sku == 'Y' || sku == 'Z') {
+                    totalOfferPrice += itemCounts.get(sku) * prices.get(sku);
+                }
+            }
         }
 
-        return totalPrice;
+        return totalOfferPrice;
     }
 
+
 }
+
 
