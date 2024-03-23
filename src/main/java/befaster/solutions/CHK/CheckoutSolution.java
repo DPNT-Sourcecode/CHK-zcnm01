@@ -106,6 +106,24 @@ public class CheckoutSolution {
 
 
 
+
+
+
+        int mCount = itemCounts.getOrDefault('M', 0);
+
+        int nCount = itemCounts.getOrDefault('N', 0);
+
+        total += prices.get('N') * rCount;
+        if (mCount > 0) {
+            if (nCount == 3 && mCount >= 1 || nCount==4 && mCount>=1) mCount--;
+            else if (nCount >= 6 && mCount >= 2) mCount -= 2;
+            else if (nCount >= 9 && mCount >= 3) mCount -= 3;
+            else if (nCount >= 12 && mCount >= 4) mCount -= 4;
+        }
+
+
+
+
  /*
         // Apply special offer for item 'F': buy 2 F's, get one F free
         int fCount = itemCounts.getOrDefault('F', 0);
@@ -148,9 +166,9 @@ public class CheckoutSolution {
                     total += (count / offerQuantityK) * offerPriceK + (count % offerQuantityK) * prices.get('K');
                     break;
                 case 'N':
-                    int freeMs = count / 3;
-                    total += (count - freeMs) * prices.get('N');
+
                     break;
+
                 case 'P':
                     int offerPriceP5 = 200;
                     total += (count / 5) * offerPriceP5 + (count % 5) * prices.get('P');
@@ -179,6 +197,7 @@ public class CheckoutSolution {
 
     }
 }
+
 
 
 
