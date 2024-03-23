@@ -221,17 +221,26 @@ public class CheckoutSolution {
         int offerQuantitySTUVWXYZ = 3;
         int offerPriceSTUVWXYZ = 45;
         int totalCountSTUVWXYZ = 0;
+
+        // Count occurrences of items S, T, X, Y, Z
         for (char sku : itemCounts.keySet()) {
-            if (sku == 'S' || sku == 'T' || sku == 'U' || sku == 'V' || sku == 'W' || sku == 'X' || sku == 'Y' || sku == 'Z') {
+            if (sku == 'S' || sku == 'T' || sku == 'X' || sku == 'Y' || sku == 'Z') {
                 totalCountSTUVWXYZ += itemCounts.get(sku);
             }
         }
-        totalOfferPriceSTUVWXYZ += (totalCountSTUVWXYZ / offerQuantitySTUVWXYZ) * offerPriceSTUVWXYZ;
+
+        // Apply the offer if at least 3 of these items are present
+        if (totalCountSTUVWXYZ >= offerQuantitySTUVWXYZ) {
+            int numberOfOffers = totalCountSTUVWXYZ / offerQuantitySTUVWXYZ;
+            totalOfferPriceSTUVWXYZ += numberOfOffers * offerPriceSTUVWXYZ;
+        }
+
         return totalOfferPriceSTUVWXYZ;
     }
 
 
 }
+
 
 
 
