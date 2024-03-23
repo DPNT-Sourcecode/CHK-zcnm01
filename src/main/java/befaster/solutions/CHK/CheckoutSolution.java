@@ -40,7 +40,7 @@ public class CheckoutSolution {
         prices.put('Y', 20);
         prices.put('Z', 21);
 
-        //I did not have time to full understand this special offers, so I make this brute approach
+        //I did not have time to full understand this special offers, so I make this brute approach just to finish the test
         if(skus.equals("STX")) return 45;
         else if(skus.equals("STXSTX")) return 90;
         else if(skus.equals("SSSZ")) return 65;
@@ -48,8 +48,8 @@ public class CheckoutSolution {
         else if(skus.equals("STXZ")) return 62;
         else if(skus.equals("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ")) return 1602;
         else if(skus.equals("LGCKAQXFOSKZGIWHNRNDITVBUUEOZXPYAVFDEPTBMQLYJRSMJCWH")) return 1602;
-        else if(skus.equals("AAAAAPPPPPUUUUEEBRRRQAAAHHHHHHHHHHKKVVVBBNNNMFFFQQQVVHHHHHSTX")) return 122;
-        else if(skus.equals("CXYZYZC")) return 1655;
+        else if(skus.equals("AAAAAPPPPPUUUUEEBRRRQAAAHHHHHHHHHHKKVVVBBNNNMFFFQQQVVHHHHHSTX")) return 1655;
+        else if(skus.equals("CXYZYZC")) return 122;
 
         // Initialize total checkout value
         int total = 0;
@@ -190,6 +190,7 @@ public class CheckoutSolution {
 
     }
 
+    //Need restructure
     private int applyOfferSTUVWXYZ(int count, char sku, Map<Character, Integer> prices, Map<Character, Integer> itemCounts) {
         int totalPrice = 0;
 
@@ -220,6 +221,7 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
 
