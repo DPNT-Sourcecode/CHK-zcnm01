@@ -135,6 +135,8 @@ public class CheckoutSolution {
                 case 'R':
                     int freeQs = count / 3;
                     total += (count - freeQs) * prices.get('R');
+                    // Subtract the price of free Qs
+                    total -= Math.min(freeQs, itemCounts.getOrDefault('Q', 0)) * prices.get('Q');
                     break;
                 case 'U':
                     int freeUs = count / 3;
@@ -154,4 +156,5 @@ public class CheckoutSolution {
 
     }
 }
+
 
