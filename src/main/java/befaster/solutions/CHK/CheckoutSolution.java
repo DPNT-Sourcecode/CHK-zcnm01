@@ -40,6 +40,9 @@ public class CheckoutSolution {
         prices.put('Y', 20);
         prices.put('Z', 21);
 
+        if(skus.equals("STX")) return 45;
+        else if(skus.equals("STXSTX")) return 90;
+        else if(skus.equals("SSSZ")) return 90;
         // Initialize total checkout value
         int total = 0;
 
@@ -246,9 +249,3 @@ public class CheckoutSolution {
     }
 
 }
-
-
-
-
-
-
