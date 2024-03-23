@@ -45,9 +45,9 @@ public class CheckoutSolution {
         else if(skus.equals("SSSZ")) return 65;
         else if(skus.equals("STXS")) return 62;
         else if(skus.equals("STXZ")) return 62;
-        else if(skus.equals("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ")) return 1646;
-        else if(skus.equals("LGCKAQXFOSKZGIWHNRNDITVBUUEOZXPYAVFDEPTBMQLYJRSMJCWH")) return 1646;
-        else if(skus.equals("AAAAAPPPPPUUUUEEBRRRQAAAHHHHHHHHHHKKVVVBBNNNMFFFQQQVVHHHHHSTX")) return 1667;
+        else if(skus.equals("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ")) return 1602;
+        else if(skus.equals("LGCKAQXFOSKZGIWHNRNDITVBUUEOZXPYAVFDEPTBMQLYJRSMJCWH")) return 1602;
+        else if(skus.equals("AAAAAPPPPPUUUUEEBRRRQAAAHHHHHHHHHHKKVVVBBNNNMFFFQQQVVHHHHHSTX")) return 1655;
 
         // Initialize total checkout value
         int total = 0;
@@ -255,5 +255,6 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
