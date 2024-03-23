@@ -193,19 +193,19 @@ public class CheckoutSolution {
                     total += (count / 3) * offerPriceV3 + ((count % 3) / 2) * offerPriceV2 + ((count % 3) % 2) * prices.get('V');
                     break;
                 case 'S':
-                    total += applyOfferSTUVWXYZ(itemCounts, prices);
+                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
                     break;
                 case 'T':
-                    total += applyOfferSTUVWXYZ(itemCounts, prices);
+                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
                     break;
                 case 'X':
-                    total += applyOfferSTUVWXYZ(itemCounts, prices);
+                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
                     break;
                 case 'Y':
-                    total += applyOfferSTUVWXYZ(itemCounts, prices);
+                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
                     break;
                 case 'Z':
-                    total += applyOfferSTUVWXYZ(itemCounts, prices);
+                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
                     break;
                 default:
                     total += count * prices.get(sku);
@@ -216,30 +216,37 @@ public class CheckoutSolution {
 
     }
 
-    private int applyOfferSTUVWXYZ(Map<Character, Integer> itemCounts, Map<Character, Integer> prices) {
-        int totalOfferPriceSTUVWXYZ = 0;
-        int offerQuantitySTUVWXYZ = 3;
-        int offerPriceSTUVWXYZ = 45;
-        int totalCountSTUVWXYZ = 0;
+    private int applyOfferSTUVWXYZ(int count, char sku, Map<Character, Integer> prices, Map<Character, Integer> itemCounts) {
+        int totalPrice = 0;
 
-        // Count occurrences of items S, T, X, Y, Z
-        for (char sku : itemCounts.keySet()) {
-            if (sku == 'S' || sku == 'T' || sku == 'X' || sku == 'Y' || sku == 'Z') {
-                totalCountSTUVWXYZ += itemCounts.get(sku);
+        // Check if there are enough items to apply the offer
+        int offerQuantity = 3;
+        if (count >= offerQuantity) {
+            // Calculate the total price according to the offer
+            int offerPrice = 45;
+            totalPrice += (count / offerQuantity) * offerPrice;
+
+            // Check if there are remaining items after applying the offer
+            int remainingItems = count % offerQuantity;
+            if (remainingItems > 0) {
+                // Calculate the price for remaining items at regular price
+                totalPrice += remainingItems * prices.get(sku);
             }
+
+            // Handle free items for U (3U get one U free)
+            if (sku == 'U' && count % 4 == 0) {
+                itemCounts.put('U', itemCounts.getOrDefault('U', 0) + 1);
+            }
+        } else {
+            // If there are not enough items for the offer, calculate the price at regular price
+            totalPrice += count * prices.get(sku);
         }
 
-        // Apply the offer if at least 3 of these items are present
-        if (totalCountSTUVWXYZ >= offerQuantitySTUVWXYZ) {
-            int numberOfOffers = totalCountSTUVWXYZ / offerQuantitySTUVWXYZ;
-            totalOfferPriceSTUVWXYZ += numberOfOffers * offerPriceSTUVWXYZ;
-        }
-
-        return totalOfferPriceSTUVWXYZ;
+        return totalPrice;
     }
 
-
 }
+
 
 
 
