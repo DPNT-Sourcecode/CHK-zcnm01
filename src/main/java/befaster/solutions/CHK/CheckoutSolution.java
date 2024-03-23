@@ -23,7 +23,7 @@ public class CheckoutSolution {
         prices.put('H', 10);
         prices.put('I', 35);
         prices.put('J', 60);
-        prices.put('K', 80);
+        prices.put('K', 70);
         prices.put('L', 90);
         prices.put('M', 15);
         prices.put('N', 40);
@@ -31,14 +31,14 @@ public class CheckoutSolution {
         prices.put('P', 50);
         prices.put('Q', 30);
         prices.put('R', 50);
-        prices.put('S', 30);
+        prices.put('S', 20);
         prices.put('T', 20);
         prices.put('U', 40);
         prices.put('V', 50);
         prices.put('W', 20);
-        prices.put('X', 90);
-        prices.put('Y', 10);
-        prices.put('Z', 50);
+        prices.put('X', 17);
+        prices.put('Y', 20);
+        prices.put('Z', 21);
 
         // Initialize total checkout value
         int total = 0;
@@ -201,3 +201,4 @@ public class CheckoutSolution {
 
     }
 }
+
