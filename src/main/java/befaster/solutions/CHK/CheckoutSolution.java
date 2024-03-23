@@ -192,6 +192,9 @@ public class CheckoutSolution {
                     int offerPriceV3 = 130;
                     total += (count / 3) * offerPriceV3 + ((count % 3) / 2) * offerPriceV2 + ((count % 3) % 2) * prices.get('V');
                     break;
+                case 'S':
+                    total += applyOfferSTUVWXYZ(count, sku, prices, itemCounts);
+                    break;
                 default:
                     total += count * prices.get(sku);
             }
@@ -201,4 +204,5 @@ public class CheckoutSolution {
 
     }
 }
+
 
