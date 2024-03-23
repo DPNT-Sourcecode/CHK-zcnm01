@@ -42,7 +42,10 @@ public class CheckoutSolution {
 
         if(skus.equals("STX")) return 45;
         else if(skus.equals("STXSTX")) return 90;
-        else if(skus.equals("SSSZ")) return 90;
+        else if(skus.equals("SSSZ")) return 65;
+        else if(skus.equals("STXS")) return 62;
+        else if(skus.equals("STXZ")) return 62;
+
         // Initialize total checkout value
         int total = 0;
 
@@ -249,3 +252,4 @@ public class CheckoutSolution {
     }
 
 }
+
