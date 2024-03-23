@@ -75,9 +75,6 @@ public class CheckoutSolution {
 
         // Apply special offer for SKU 'B'
 
-        int offerQuantityB = 2;
-        int offerPriceB = 45;
-        total += (bCount / offerQuantityB) * offerPriceB + (bCount % offerQuantityB) * prices.get('B');
  /*
         // Apply special offer for item 'F': buy 2 F's, get one F free
         int fCount = itemCounts.getOrDefault('F', 0);
@@ -101,16 +98,13 @@ public class CheckoutSolution {
                     int offerPriceA5 = 200;
                     total += (count / 5) * offerPriceA5 + ((count % 5) / 3) * offerPriceA3 + ((count % 5) % 3) * prices.get('A');
                     break;
-               /* case 'B':
+                case 'B':
                     int offerQuantityB = 2;
                     int offerPriceB = 45;
                     total += (count / offerQuantityB) * offerPriceB + (count % offerQuantityB) * prices.get('B');
                     break;
                 case 'E':
-                    int freeBs = count / 2;
-                    total += (count - freeBs) * prices.get('E');
-                    total -= Math.min(freeBs, itemCounts.getOrDefault('B', 0)) * prices.get('B');
-                    break;*/
+                    break;
                 case 'F':
                     int freeFs = count / 3;
                     total += (count - freeFs) * prices.get('F');
@@ -151,7 +145,8 @@ public class CheckoutSolution {
                     int offerPriceV3 = 130;
                     total += (count / 3) * offerPriceV3 + ((count % 3) / 2) * offerPriceV2 + ((count % 3) % 2) * prices.get('V');
                     break;
-
+                default:
+                    total += count * prices.get(sku);
             }
         }
 
@@ -159,8 +154,3 @@ public class CheckoutSolution {
 
     }
 }
-
-
-
-
-
